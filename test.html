@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Aaron Kankipati - Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      background: #0A1515;
+      display: flex;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: #E8F4FF;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 340px;
+      background: #152525;
+      padding: 60px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      border-right: 1px solid rgba(79, 195, 247, 0.15);
+      overflow-y: auto;
+    }
+
+    .sidebar h1 {
+      font-family: 'Georgia', serif;
+      font-size: 48px;
+      font-weight: 300;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+      color: #E8F4FF;
+    }
+
+    .sidebar h2 {
+      font-family: 'Georgia', serif;
+      font-size: 48px;
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: -1px;
+      color: #4FC3F7;
+      margin-bottom: 24px;
+    }
+
+    .divider {
+      width: 32px;
+      height: 1px;
+      background: rgba(79, 195, 247, 0.4);
+      margin-bottom: 24px;
+    }
+
+    .title {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: rgba(232, 244, 255, 0.5);
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .nav a {
+      color: rgba(232, 244, 255, 0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+      padding: 8px 0;
+      border-left: 2px solid transparent;
+      padding-left: 12px;
+    }
+
+    .nav a:hover {
+      color: #4FC3F7;
+      border-left-color: #4FC3F7;
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      padding: 60px 80px;
+      overflow-y: auto;
+      max-width: 1000px;
+    }
+
+    .section {
+      margin-bottom: 80px;
+    }
+
+    .section h3 {
+      font-size: 24px;
+      font-weight: 300;
+      margin-bottom: 32px;
+      color: #4FC3F7;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .section p {
+      line-height: 1.8;
+      color: rgba(232, 244, 255, 0.8);
+      margin-bottom: 16px;
+      max-width: 600px;
+    }
+
+    .skill-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .skill-item {
+      padding: 16px;
+      background: rgba(21, 37, 37, 0.6);
+      border-left: 3px solid #4FC3F7;
+      border-radius: 4px;
+    }
+
+    .skill-item strong {
+      color: #4FC3F7;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .skill-item p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    /* Dots */
+    .progress-dots {
+      display: flex;
+      gap: 8px;
+      margin-top: 40px;
+      justify-content: center;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(79, 195, 247, 0.35);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot.active {
+      width: 8px;
+      height: 8px;
+      background: #4FC3F7;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 40px 30px;
+        border-right: none;
+        border-bottom: 1px solid rgba(79, 195, 247, 0.15);
+        position: relative;
+        top: auto;
+        sticky: none;
+      }
+
+      .sidebar h1 {
+        font-size: 36px;
+      }
+
+      .sidebar h2 {
+        font-size: 36px;
+        margin-bottom: 16px;
+      }
+
+      .title {
+        margin-bottom: 20px;
+      }
+
+      .main {
+        padding: 40px 20px;
+        max-width: 100%;
+      }
+
+      .skill-list {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        flex-direction: row;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .nav a {
+        font-size: 12px;
+      }
+    }
+
+    /* Dark mode accents */
+    .highlight {
+      color: #4FC3F7;
+    }
+
+    .code-block {
+      background: rgba(10, 21, 21, 0.8);
+      border-left: 3px solid #4FC3F7;
+      padding: 12px 16px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      margin: 16px 0;
+      border-radius: 4px;
+      color: #90CAF9;
+      overflow-x: auto;
+    }
+
+    footer {
+      text-align: center;
+      color: rgba(232, 244, 255, 0.4);
+      font-size: 12px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(79, 195, 247, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- QA Test Notice -->
+  <div style="position: fixed; top: 10px; right: 10px; background: #4FC3F7; color: #0A1515; padding: 8px 12px; border-radius: 4px; font-size: 12px; z-index: 1000;">
+    ✅ QA Test - Works Instantly (No Bundler)
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h1>Aaron</h1>
+    <h2>Kankipati</h2>
+    <div class="divider"></div>
+    <p class="title">Senior Product Owner</p>
+    
+    <nav class="nav">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <!-- About Section -->
+    <section class="section" id="about">
+      <h3>About</h3>
+      <p>
+        I'm a Senior Product Owner with <span class="highlight">10+ years</span> of experience leading cross-functional teams to deliver innovative digital solutions. My passion lies in bridging the gap between technology and business strategy to create products that solve real problems.
+      </p>
+      <p>
+        I specialize in building scalable products, defining clear product vision, and driving execution across agile teams. My background in both software engineering and product management gives me a unique perspective on what's possible.
+      </p>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section" id="experience">
+      <h3>Experience</h3>
+      
+      <div class="skill-item">
+        <strong>Senior Product Owner @ TechCorp</strong>
+        <p><em>2020 - Present</em></p>
+        <p>Led a team of 8 engineers to deliver a platform serving 100K+ users. Increased user engagement by 40% through data-driven product decisions.</p>
+      </div>
+
+      <div class="skill-item">
+        <strong>Product Manager @ StartupXYZ</strong>
+        <p><em>2018 - 2020</em></p>
+        <p>Managed the full product lifecycle for a SaaS application. Grew MRR from $0 to $50K through product improvements and customer partnerships.</p>
+      </div>
+
+      <div class="skill-item">
+        <strong>Senior Software Engineer @ WebServices Inc</strong>
+        <p><em>2015 - 2018</em></p>
+        <p>Built microservices handling millions of requests/day. Mentored 5 junior engineers and led architectural decisions.</p>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+      <h3>Skills</h3>
+      
+      <div class="skill-list">
+        <div class="skill-item">
+          <strong>Product Strategy</strong>
+          <p>Vision definition, roadmapping, market analysis, competitive research</p>
+        </div>
+        <div class="skill-item">
+          <strong>Agile/Scrum</strong>
+          <p>Sprint planning, backlog management, stakeholder alignment, delivery excellence</p>
+        </div>
+        <div class="skill-item">
+          <strong>Data Analytics</strong>
+          <p>A/B testing, metrics definition, SQL, analytics tools, data visualization</p>
+        </div>
+        <div class="skill-item">
+          <strong>Stakeholder Management</strong>
+          <p>Executive communication, cross-team collaboration, requirement gathering</p>
+        </div>
+        <div class="skill-item">
+          <strong>Technical Acumen</strong>
+          <p>Full-stack web development, system design, cloud infrastructure (AWS, GCP)</p>
+        </div>
+        <div class="skill-item">
+          <strong>Team Leadership</strong>
+          <p>Team building, mentoring, performance management, culture development</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+      <h3>Featured Projects</h3>
+      
+      <div class="skill-item">
+        <strong>Analytics Dashboard Platform</strong>
+        <p>Built a real-time analytics dashboard used by 500+ companies. Stack: React, Node.js, PostgreSQL, Redis. Achieved 99.9% uptime.</p>
+      </div>
+
+      <div class="skill-item">
+        <strong>Mobile Payment System</strong>
+        <p>Designed and launched a mobile payment feature processing $10M+ annually. Led cross-team coordination between backend, mobile, and security teams.</p>
+      </div>
+
+      <div class="skill-item">
+        <strong>Machine Learning Integration</strong>
+        <p>Integrated ML models into product recommendations, improving conversion by 35%. Worked closely with data science team to validate model performance.</p>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+      <h3>Get In Touch</h3>
+      <p>
+        I'm always interested in discussing product strategy, career opportunities, or interesting projects. Feel free to reach out:
+      </p>
+      <div class="skill-item">
+        <strong>Email</strong>
+        <p>aaron@example.com</p>
+      </div>
+      <div class="skill-item">
+        <strong>LinkedIn</strong>
+        <p>linkedin.com/in/aaronkankipati</p>
+      </div>
+      <div class="skill-item">
+        <strong>GitHub</strong>
+        <p>github.com/aaronkankipati</p>
+      </div>
+
+      <footer>
+        <p>© 2026 Aaron Kankipati. All rights reserved.</p>
+        <p style="margin-top: 12px; font-size: 11px;">
+          <em>This is a QA test file. For the production bundled version, see index.html</em>
+        </p>
+      </footer>
+    </section>
+
+    <div class="progress-dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </main>
+</body>
+</html>

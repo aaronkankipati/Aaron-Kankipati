@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-navy text-cream antialiased selection:bg-gold/30">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaron Kankipati | AI Product Strategist</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { DEFAULT: '#0e0814', mid: '#160f20', light: '#231530' },
+                        gold: { DEFAULT: '#c9a84c', light: '#e8c97a', pale: '#f5e8c0' },
+                        cream: '#faf6ed',
+                        muted: '#8878a0',
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Jost', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+                        'cinematic': '0 20px 50px rgba(0,0,0,0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="relative overflow-x-hidden font-sans">
+
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+    <div id="cursor-glow"></div>
+
+    <canvas id="webgl-canvas" class="fixed inset-0 z-0 pointer-events-none"></canvas>
+
+    <nav class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-6 px-6 py-3 rounded-full bg-white/5 backdrop-blur-2xl border border-white/10 shadow-glass opacity-0 translate-y-10" id="command-bar">
+        <span class="text-gold-light text-xs tracking-[0.2em] uppercase font-sans pr-4 border-r border-white/10">System_Init</span>
+        <a href="#projects" class="text-cream text-xs uppercase tracking-widest hover:text-gold transition-colors duration-300">Portfolio</a>
+        <a href="#about" class="text-cream text-xs uppercase tracking-widest hover:text-gold transition-colors duration-300">Identity</a>
+    </nav>
+
+    <main class="relative z-10">
+        
+        <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+            <div class="absolute top-[20%] text-center opacity-0 scale-95" id="hero-quote">
+                <p class="font-serif italic text-cream/40 text-sm tracking-wide">
+                    "I have no special talents. I am only passionately curious."
+                </p>
+                <p class="font-sans text-[0.65rem] tracking-[0.16em] text-gold/50 mt-2 uppercase">
+                    — Einstein
+                </p>
+            </div>
+
+            <div class="flex flex-col items-center mt-12 z-20">
+                <div class="border border-gold/30 px-6 py-2 rounded-full mb-8 backdrop-blur-md bg-navy/20 opacity-0 translate-y-5" id="hero-badge">
+                    <span class="text-gold text-[0.65rem] tracking-[0.22em] uppercase">Product &amp; AI Builder</span>
+                </div>
+
+                <h1 class="font-serif text-[clamp(3.5rem,10vw,7rem)] leading-none text-cream mix-blend-screen opacity-0 translate-y-10" id="hero-title">
+                    <em class="text-gold-light italic mr-4">Aaron</em>Kankipati
+                </h1>
+
+                <div class="w-0 h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent my-8" id="hero-line"></div>
+
+                <p class="max-w-md text-center text-muted font-sans text-sm leading-relaxed opacity-0" id="hero-desc">
+                    I'm a Product guy by profession. I build things with AI on the side because I'm curious, and because the best way to understand a tool is to make something real with it.
+                </p>
+            </div>
+            
+            <div class="absolute bottom-12 flex flex-col items-center gap-2 opacity-40">
+                <span class="text-[0.62rem] tracking-[0.2em] uppercase text-gold">Scroll</span>
+                <div class="w-[1px] h-10 bg-gradient-to-b from-gold to-transparent animate-pulse"></div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-20 px-6 max-w-7xl mx-auto text-center relative z-20">
+            <div class="section-label text-[0.65rem] tracking-[0.22em] uppercase text-gold mb-3">Selected Work</div>
+            <h2 class="font-serif text-[clamp(2rem,6vw,3.4rem)] font-light text-cream mb-6">AI <em class="italic text-gold-light">Portfolio</em></h2>
+            <div class="w-12 h-[1px] bg-gradient-to-r from-gold to-transparent mx-auto mb-10"></div>
+            <p class="text-muted text-sm leading-relaxed max-w-2xl mx-auto">
+                I spend my days as a Product Owner at Wells Fargo. These projects are what I built outside of that, on evenings and weekends, applying the same product thinking to problems I genuinely wanted solved for myself.
+            </p>
+        </section>
+
+        <section class="relative min-h-screen py-32 px-6 max-w-7xl mx-auto z-20">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                
+                <div class="flex-1 space-y-8">
+                    <div class="flex items-center gap-4">
+                        <span class="font-serif text-5xl font-light text-gold/20">03</span>
+                        <div class="px-4 py-1 rounded-full border border-green-500/30 bg-green-500/10 flex items-center gap-2">
+                            <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                            <span class="text-green-500 text-[0.62rem] uppercase tracking-widest">Live Market Engine</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="font-serif text-4xl text-cream">Neon Bull</h3>
+                    <p class="text-gold-pale italic text-sm opacity-80">
+                        I gave an AI ₹10,000 and full control to trade the Indian stock market.
+                    </p>
+                    <p class="text-muted text-sm leading-relaxed">
+                        Neon Bull exists because of Project Zeon. I was building an AI trading system connected to a live brokerage account with real money. The APIs were integrated, the logic was in place, and everything was ready to go. But before handing an AI full control over real capital, I needed to know if the engine actually worked. So I built this first. Same system. Same logic. Same market. The only difference is the money is not real yet.
+                    </p>
+                    <a href="https://aaronkankipati.github.io/NeonBull/" target="_blank" class="inline-flex items-center gap-2 text-gold-light text-xs uppercase tracking-widest border-b border-gold/30 pb-1 hover:text-gold-pale hover:border-gold transition-all">
+                        View Live Experiment →
+                    </a>
+                </div>
+
+                <div class="flex-1 grid grid-cols-2 gap-4 relative w-full" id="grid-neonbull">
+                    
+                    <div class="bento-card col-span-2 p-8 rounded-2xl bg-navy-mid border border-white/5 shadow-cinematic">
+                        <h4 class="text-[0.65rem] text-gold uppercase tracking-widest mb-6">How I Approached It</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <div class="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 flex-shrink-0"></div>
+                                <p class="text-muted text-xs leading-relaxed"><strong class="text-cream font-normal">A controlled version:</strong> Seeded with ₹10,000 test money, Claude trades autonomously. Stocks, prices, and brokerage charges are real.</p>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 flex-shrink-0"></div>
+                                <p class="text-muted text-xs leading-relaxed"><strong class="text-cream font-normal">How it runs:</strong> 2 Cloudflare crons fire at 9:30 AM & 1:30 PM IST. Pulls live Yahoo Finance NSE prices, feeds RSI/SMA to Claude Sonnet. No server. No manual trigger.</p>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 flex-shrink-0"></div>
+                                <p class="text-muted text-xs leading-relaxed"><strong class="text-cream font-normal">Guardrails:</strong> Auto-pauses if portfolio drops below starting capital. Stock names hidden publicly for SEBI compliance.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bento-card-fast col-span-2 p-8 rounded-2xl bg-purple-900/10 border border-purple-500/20 shadow-cinematic mt-4">
+                        <h4 class="text-[0.65rem] text-purple-400 uppercase tracking-widest mb-6">Product Thinking: Cost Optimization</h4>
+                        <div class="flex items-end justify-between mb-6">
+                            <div>
+                                <p class="text-red-400 line-through text-xs opacity-50 mb-1">V1: ₹41 / day</p>
+                                <p class="text-green-400 text-3xl font-serif">₹0.40 <span class="text-xs font-sans text-muted">/ day</span></p>
+                            </div>
+                            <span class="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-[0.6rem] border border-green-500/20 uppercase tracking-wider">
+                                99% Reduction
+                            </span>
+                        </div>
+                        <p class="text-muted text-xs leading-relaxed">
+                            <strong class="text-cream font-normal">V4 Evolution:</strong> RSI, SMA, and Volume ratio run in pure JS at zero cost. News is parsed via RSS in 200ms. Claude only sees the 0-4 instruments that pass all conditions. Cost dropped not by cutting intelligence, but by moving computation to where it belongs. Zero overrides.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative min-h-screen py-32 px-6 max-w-7xl mx-auto z-20">
+            <div class="flex flex-col-reverse lg:flex-row gap-16 items-center">
+                
+                <div class="flex-1 w-full relative h-[400px]" id="grid-zeon">
+                    <div class="zeon-card absolute inset-0 bg-navy-mid border border-gold/10 rounded-2xl p-10 flex flex-col justify-center shadow-cinematic">
+                        <div class="w-16 h-16 rounded-full bg-gold/5 border border-gold/20 flex items-center justify-center mb-8">
+                            <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        </div>
+                        <h4 class="text-[0.65rem] text-gold uppercase tracking-widest mb-4">Strategic Pause</h4>
+                        <p class="text-muted text-xs leading-relaxed mb-4">
+                            Giving an AI complete control over a live brokerage account on day one is interesting. It is also risky. I had the keys, the integrations, and the technical setup ready to go.
+                        </p>
+                        <p class="text-muted text-xs leading-relaxed">
+                            But I wanted to prove the engine works before it touches real money. That pause was a product decision, not a fear of shipping.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex-1 space-y-8">
+                    <div class="flex items-center gap-4">
+                        <span class="font-serif text-5xl font-light text-gold/20">02</span>
+                        <div class="px-4 py-1 rounded-full border border-gold/30 bg-gold/10 flex items-center gap-2">
+                            <span class="text-gold-light text-[0.62rem] uppercase tracking-widest">In Progress (Private)</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="font-serif text-4xl text-cream">Project Zeon</h3>
+                    <p class="text-gold-pale italic text-sm opacity-80">
+                        Real money. Real trades. No human intervention once it's running.
+                    </p>
+                    <p class="text-muted text-sm leading-relaxed">
+                        Over the past few weekends I have been quietly building an AI-driven trading system connected to a live brokerage account. The API keys are in place. The systems are integrated. A lot of the groundwork is already done. But I stopped before going live, because giving an AI full access to a real account on day one felt like a decision that deserved more than enthusiasm.
+                    </p>
+                    <p class="text-muted text-sm leading-relaxed">
+                        The honest goal is not to get rich quickly. The goal is to build something that survives real-world market conditions and keeps getting better. No unrealistic backtests. No hype. Just curiosity, iteration, and learning in public.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative min-h-screen py-32 px-6 max-w-7xl mx-auto z-20">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0510]/80 to-transparent -z-10 pointer-events-none"></div>
+            <div class="film-grain"></div>
+
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                
+                <div class="flex-1 space-y-8 relative z-30">
+                    <div class="flex items-center gap-4">
+                        <span class="font-serif text-5xl font-light text-gold/20">01</span>
+                        <div class="px-4 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 flex items-center gap-2">
+                            <span class="text-blue-400 text-[0.62rem] uppercase tracking-widest">Live Product</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="font-serif text-4xl text-cream">Moodfilm</h3>
+                    <p class="text-blue-200/80 italic text-sm opacity-90">
+                        I am not a developer by profession. I am a Product guy. I built this anyway.
+                    </p>
+                    <p class="text-muted text-sm leading-relaxed">
+                        An AI film curator that starts with a simple question: how are you feeling right now? Tell it your mood, pick a language (English, Hindi, or Telugu) and it finds a film matched to that emotional moment, not your watch history. Product thinking over code.
+                    </p>
+
+                    <div class="mt-8 border-l border-blue-500/30 pl-6">
+                        <h4 class="text-[0.65rem] text-blue-400 uppercase tracking-widest mb-4">Product Thinking: Infrastructure</h4>
+                        <p class="text-muted text-xs leading-relaxed mb-3">
+                            <strong class="text-cream font-normal">Match the model to the task:</strong> Mood analysis is pattern recognition—not deep reasoning. Call 1 was switched to Claude Haiku, cutting token ceiling from 900 to 400. Call 2 stayed on Sonnet for reasoning quality, but trimmed to 1,400 tokens.
+                        </p>
+                        <p class="text-muted text-xs leading-relaxed mb-4">
+                            <strong class="text-cream font-normal">Cut the input, not the quality:</strong> Candidate pool dropped from 10 to 6 films. Overviews trimmed to 80 chars. 
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-blue-500/10 text-blue-300 rounded border border-blue-500/20 text-[0.6rem] uppercase">V2: $0.030 / session</span>
+                            <span class="px-2 py-1 bg-green-500/10 text-green-400 rounded border border-green-500/20 text-[0.6rem] uppercase">54% Cheaper</span>
+                        </div>
+                    </div>
+                    
+                    <a href="https://aaronkankipati.github.io/Moodfilm1/" target="_blank" class="inline-flex mt-4 items-center gap-2 text-gold-light text-xs uppercase tracking-widest border-b border-gold/30 pb-1 hover:text-gold-pale hover:border-gold transition-all">
+                        Try Moodfilm →
+                    </a>
+                </div>
+
+                <div class="flex-1 relative w-full h-[500px] flex items-center justify-center" id="cinema-grid">
+                    <div class="cinema-card absolute top-10 left-10 w-48 h-72 rounded-xl bg-gradient-to-br from-blue-900/40 to-black border border-white/10 shadow-cinematic backdrop-blur-md overflow-hidden rotate-[-6deg]">
+                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-luminosity"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <p class="text-[0.65rem] text-cream/70 uppercase tracking-[0.3em]">Analysis</p>
+                        </div>
+                    </div>
+                    
+                    <div class="cinema-card-fast absolute bottom-10 right-10 w-56 h-80 rounded-xl bg-gradient-to-br from-gold-900/30 to-black border border-gold/20 shadow-cinematic backdrop-blur-md overflow-hidden rotate-[4deg] z-10">
+                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-50 mix-blend-overlay"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <p class="text-xs text-gold uppercase tracking-[0.2em]">Emotional Arc</p>
+                        </div>
+                    </div>
+                    
+                    <div class="cinema-card-slow absolute w-64 h-64 rounded-full border border-white/5 bg-white/5 shadow-glass backdrop-blur-2xl flex items-center justify-center z-20">
+                        <div class="w-48 h-48 rounded-full bg-gradient-to-tr from-blue-500/20 to-purple-500/20 blur-2xl animate-pulse"></div>
+                        <span class="absolute font-serif text-3xl italic text-cream/90 text-center leading-tight">
+                            AI<br><span class="text-sm font-sans not-italic text-muted uppercase tracking-widest">Meets</span><br>
+                            <span class="lang-switch before:content-['Cinema']"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="relative py-32 px-6 max-w-7xl mx-auto z-20 border-t border-white/5">
+            <div class="text-center mb-16">
+                <span class="text-[0.65rem] tracking-[0.22em] uppercase text-gold mb-3 block">The Person Behind The Work</span>
+                <h2 class="font-serif text-[clamp(2rem,6vw,3.4rem)] font-light text-cream">About <em class="italic text-gold-light">Me</em></h2>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+                <div class="w-full md:w-1/3 flex justify-center">
+                    <div class="relative w-[300px] h-[300px] flex items-center justify-center">
+                        <div class="w-32 h-32 rounded-full border border-gold/30 bg-gradient-to-br from-navy-light to-navy flex items-center justify-center shadow-[0_0_40px_rgba(201,168,76,0.15)] z-10 hover-target">
+                            <span class="font-serif text-2xl text-cream">AK</span>
+                        </div>
+
+                        <div class="orbit-container"><div class="orbit-node px-3 py-1.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-[0.65rem] text-cream uppercase tracking-wider">Product Thinking</div></div>
+                        <div class="orbit-container"><div class="orbit-node px-3 py-1.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-[0.65rem] text-cream uppercase tracking-wider">AI Systems</div></div>
+                        <div class="orbit-container"><div class="orbit-node px-3 py-1.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-[0.65rem] text-cream uppercase tracking-wider">Financial Systems</div></div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-2/3 space-y-10">
+                    <div class="border-l border-gold/20 pl-6 relative">
+                        <div class="absolute w-2 h-2 rounded-full bg-gold -left-[4.5px] top-1"></div>
+                        <span class="text-[0.65rem] tracking-[0.15em] text-gold uppercase mb-1 block">Present</span>
+                        <h4 class="font-serif text-xl text-cream mb-2">Product Owner @ Wells Fargo</h4>
+                        <p class="text-muted text-sm leading-relaxed">Spending my days managing complex financial architectures and modernizing enterprise core banking platforms. Applying rigorous product management methodologies to stakeholder needs and operational requirements.</p>
+                    </div>
+                    
+                    <div class="border-l border-white/10 pl-6 relative">
+                        <div class="absolute w-2 h-2 rounded-full bg-white/30 -left-[4.5px] top-1"></div>
+                        <span class="text-[0.65rem] tracking-[0.15em] text-muted uppercase mb-1 block">Evenings & Weekends</span>
+                        <h4 class="font-serif text-xl text-cream mb-2">The AI Laboratory</h4>
+                        <p class="text-muted text-sm leading-relaxed">Applying the exact same product thinking to AI systems. Creating automated market engines (Neon Bull/Zeon), generative aesthetic curators (Moodfilm), and scaling digital content strategies. I build to understand how the tools of tomorrow integrate with the systems of today.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-12 border-t border-white/5 text-center relative z-20">
+            <p class="text-[0.65rem] text-muted uppercase tracking-[0.2em]">Designed for 2026. Built by Aaron Kankipati.</p>
+        </footer>
+
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <script src="app.js"></script>
+</body>
+</html>

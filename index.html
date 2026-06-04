@@ -153,8 +153,37 @@
               linear-gradient(160deg, var(--navy-light), var(--navy-deep));
         }
 
+        /* ===== Accordion (tap to reveal) ===== */
+        .acc-toggle{
+            width:100%; display:flex; align-items:center; justify-content:space-between; gap:1rem;
+            padding:.95rem 1.15rem; border-radius:14px; cursor:pointer;
+            background:rgba(201,168,76,.06); border:1px solid rgba(201,168,76,.18);
+            color:var(--gold-pale); font-family:'Jost',sans-serif; font-size:.7rem;
+            letter-spacing:.16em; text-transform:uppercase; text-align:left;
+            transition:background .35s, border-color .35s;
+        }
+        .acc-toggle:hover{ background:rgba(201,168,76,.1); border-color:rgba(201,168,76,.34); }
+        .acc-icon{
+            flex-shrink:0; width:22px; height:22px; border-radius:9999px; display:grid; place-items:center;
+            border:1px solid rgba(201,168,76,.35); font-size:1rem; line-height:1;
+            transition:transform .4s cubic-bezier(.2,.7,.2,1);
+        }
+        .acc-toggle[aria-expanded="true"] .acc-icon{ transform:rotate(45deg); }
+        .acc-panel{ overflow:hidden; max-height:0; transition:max-height .55s cubic-bezier(.16,1,.3,1); }
+        .acc-step{ display:flex; gap:.85rem; padding:.55rem 0; }
+        .acc-step .dot{ flex-shrink:0; width:7px; height:7px; margin-top:.45rem; border-radius:9999px; background:var(--gold); box-shadow:0 0 10px var(--gold); }
+        .acc-step.prod .dot{ background:var(--sky); box-shadow:0 0 10px var(--sky); }
+        .acc-step p{ color:var(--muted); font-size:.82rem; line-height:1.7; font-weight:300; }
+        .acc-step strong{ color:var(--cream); font-weight:500; }
+        .chip-row{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.9rem; }
+        .chip{ font-size:.66rem; letter-spacing:.02em; padding:.35rem .7rem; border-radius:9999px; border:1px solid rgba(255,255,255,.12); color:var(--muted); }
+        .chip.good{ border-color:rgba(52,211,153,.4); color:var(--emerald); background:rgba(52,211,153,.07); }
+        .chip.bad{ border-color:rgba(248,113,113,.4); color:#fca5a5; background:rgba(248,113,113,.07); }
+        .chip.gold{ border-color:rgba(201,168,76,.4); color:var(--gold-pale); background:rgba(201,168,76,.08); }
+
         @media (prefers-reduced-motion:reduce){
             *{ animation:none !important; transition:none !important; }
+            .acc-panel{ transition:none; }
         }
     </style>
 </head>
@@ -253,14 +282,247 @@
             </p>
         </section>
 
-        <!-- ================= PROJECT 01 — NEON BULL ================= -->
-        <section class="relative py-20 md:py-28 px-6 max-w-6xl mx-auto z-20">
+        <!-- ================= PROJECT 01 — MOODFILM (CASE STUDY) ================= -->
+        <section class="relative py-20 md:py-28 px-6 z-20">
+            <div class="max-w-6xl mx-auto">
+
+                <!-- header -->
+                <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start mb-14">
+                    <div class="flex-1 space-y-6">
+                        <div class="flex items-center gap-4" data-reveal>
+                            <span class="font-serif text-5xl font-light text-gold/20">01</span>
+                            <div class="px-3 py-1 rounded-full border border-sky2/30 bg-sky2/10">
+                                <span class="text-sky2 text-[0.56rem] uppercase tracking-[0.18em]">Live Product · V2</span>
+                            </div>
+                        </div>
+                        <h3 class="font-serif text-4xl md:text-5xl text-cream" data-reveal>Moodfilm</h3>
+                        <p class="font-serif italic text-sky2/90 text-lg md:text-xl leading-snug" data-reveal>
+                            I am not a developer. I built this anyway. Product thinking over code.
+                        </p>
+                        <p class="text-muted text-sm md:text-base leading-relaxed font-light" data-reveal>
+                            An AI film curator that starts with one question — <em class="text-cream/90 not-italic font-normal">how are you feeling right now?</em>
+                            Tell it your mood, pick a language, and it finds a film matched to that emotional moment.
+                            
+                        </p>
+                        <a href="https://aaronkankipati.github.io/Moodfilm1/" target="_blank" rel="noopener" data-magnetic
+                           class="magnetic group inline-flex items-center gap-2 text-gold-light text-xs uppercase tracking-[0.18em] border-b border-gold/30 pb-1 hover:text-gold-pale hover:border-gold transition-all" data-reveal>
+                            Try Moodfilm v2 <span class="group-hover:translate-x-1 transition-transform">→</span>
+                        </a>
+                    </div>
+
+                    <!-- mock product card -->
+                    <div class="flex-1 w-full" data-reveal>
+                        <div class="card p-6 md:p-8 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-sky2/5 to-purple-500/5 pointer-events-none"></div>
+                            <div class="relative">
+                                <div class="flex justify-center mb-4">
+                                    <span class="node gold text-[0.6rem]">● AI Film Curator</span>
+                                </div>
+                                <p class="font-serif text-center text-2xl md:text-3xl text-cream mb-1">How are you <em class="italic text-gradient-gold">feeling</em></p>
+                                <p class="font-serif text-center text-2xl md:text-3xl text-cream mb-5">today?</p>
+                                <div class="flex flex-wrap justify-center gap-2 mb-5">
+                                    <span class="node text-[0.62rem]">Happy</span><span class="node text-[0.62rem]">Lonely</span>
+                                    <span class="node text-[0.62rem]">Hopeful</span><span class="node text-[0.62rem]">Heartbroken</span>
+                                    <span class="node text-[0.62rem]">Cozy</span><span class="node text-[0.62rem]">Restless</span>
+                                </div>
+                                <div class="flex flex-wrap justify-center gap-2 mb-6">
+                                    <span class="node sky text-[0.62rem]">English</span>
+                                    <span class="node gold text-[0.62rem]">Hindi</span>
+                                    <span class="node emer text-[0.62rem]">Telugu</span>
+                                </div>
+                                <div class="text-center py-3 rounded-full bg-gold/15 border border-gold/30 text-gold-pale text-xs uppercase tracking-[0.16em]">Find my film →</div>
+                            </div>
+                        </div>
+                        <p class="text-center eyebrow text-[0.55rem] text-muted/50 mt-3">Claude · film &amp; streaming data · serverless edge</p>
+                    </div>
+                </div>
+
+                <!-- STEP: DIAGNOSE -->
+                <div class="mb-10" data-reveal>
+                    <div class="flex items-baseline gap-3 mb-5">
+                        <span class="eyebrow text-[0.58rem] text-sky2">V1 → V2 · Diagnose</span>
+                        <span class="h-px flex-1 bg-white/8"></span>
+                    </div>
+                    <h4 class="font-serif text-2xl md:text-3xl text-cream mb-1">I used my own product.</h4>
+                    <p class="font-serif italic text-muted text-xl mb-7">Not from a code review — from opening the app the way a real user would.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="card card-glow p-5 border-l-2 border-l-rose-400/40">
+                            <div class="eyebrow text-[0.52rem] text-rose-300 mb-2">Trust failure</div>
+                            <p class="text-cream text-sm mb-2">Every poster showed the wrong film.</p>
+                            <p class="text-muted text-xs font-light leading-relaxed">Wrong image on every card — every pick felt unreliable before you read a word.</p>
+                        </div>
+                        <div class="card card-glow p-5 border-l-2 border-l-amber-400/40">
+                            <div class="eyebrow text-[0.52rem] text-amber-300 mb-2">Core promise broken</div>
+                            <p class="text-cream text-sm mb-2">Same films for every mood.</p>
+                            <p class="text-muted text-xs font-light leading-relaxed">The whole premise is emotional relevance. Same blockbusters for every mood, and there's no product.</p>
+                        </div>
+                        <div class="card card-glow p-5 border-l-2 border-l-sky2/40">
+                            <div class="eyebrow text-[0.52rem] text-sky2 mb-2">Backlog item #1</div>
+                            <p class="text-cream text-sm mb-2">No Hindi or Telugu support.</p>
+                            <p class="text-muted text-xs font-light leading-relaxed">Missing in V1, it became the #1 request after launch. Users set the roadmap.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP: THE CONSTRAINT (showpiece) -->
+                <div class="mb-10" data-reveal>
+                    <div class="card p-7 md:p-9 relative overflow-hidden">
+                        <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-gold/5 blur-3xl pointer-events-none"></div>
+                        <div class="relative">
+                            <div class="eyebrow text-[0.58rem] text-gold mb-3">V2 · The Product Decision</div>
+                            <h4 class="font-serif text-2xl md:text-4xl text-cream leading-tight mb-2">I hit a ceiling.</h4>
+                            <p class="font-serif italic text-muted text-xl md:text-2xl mb-6">So I redesigned around it.</p>
+                            <p class="text-muted text-sm md:text-base font-light leading-relaxed max-w-3xl mb-7">
+                                A second film-data source gave richer results — but two libraries pushed <span class="text-cream">170 calls per session</span> against a 50-call free-tier limit.
+                                The easy move was to pay. Instead I scoped it down.
+                                Batched and parallelised everything down to <span class="text-gold-light">22 calls max</span>. Same data, still free.
+                            </p>
+                            <div class="flex flex-wrap items-stretch gap-4">
+                                <div class="flex-1 min-w-[120px] text-center py-4 px-3 rounded-xl bg-white/[.03] border border-white/8">
+                                    <div class="font-serif text-3xl text-cream">170<span class="text-muted text-base">→</span><span class="text-gold-light">22</span></div>
+                                    <div class="eyebrow text-[0.5rem] text-muted mt-1">Calls / session</div>
+                                </div>
+                                <div class="flex-1 min-w-[120px] text-center py-4 px-3 rounded-xl bg-white/[.03] border border-white/8">
+                                    <div class="font-serif text-3xl text-gold-light">Free</div>
+                                    <div class="eyebrow text-[0.5rem] text-muted mt-1">Tier kept</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP: SHIP + DELIGHT -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" data-reveal>
+                    <div>
+                        <div class="flex items-baseline gap-3 mb-5">
+                            <span class="eyebrow text-[0.58rem] text-emerald2">V2 · Prioritise &amp; Ship</span>
+                            <span class="h-px flex-1 bg-white/8"></span>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="card p-5 flex items-start gap-4">
+                                <span class="text-emerald2 mt-0.5">✓</span>
+                                <div><p class="text-cream text-sm mb-1">Poster now always matches the film</p><p class="text-muted text-xs font-light">Claude returns the exact film, so the right poster loads every time. No guessing. <span class="text-emerald2/80">Wrong poster eliminated.</span></p></div>
+                            </div>
+                            <div class="card p-5 flex items-start gap-4">
+                                <span class="text-emerald2 mt-0.5">✓</span>
+                                <div><p class="text-cream text-sm mb-1">Language selection from user feedback</p><p class="text-muted text-xs font-light">Any / English / Hindi / Telugu, applied at every step. <span class="text-emerald2/80">Top request delivered.</span></p></div>
+                            </div>
+                            <div class="card p-5 flex items-start gap-4">
+                                <span class="text-emerald2 mt-0.5">✓</span>
+                                <div><p class="text-cream text-sm mb-1">Recommendation engine rebuilt</p><p class="text-muted text-xs font-light">A psychological mood model with 900k+ films now reachable. <span class="text-emerald2/80">Core promise restored.</span></p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-baseline gap-3 mb-5">
+                            <span class="eyebrow text-[0.58rem] text-gold">V2 · Customer Delight</span>
+                            <span class="h-px flex-1 bg-white/8"></span>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="card p-5">
+                                <p class="text-cream text-sm mb-1">“Did you know?” loading cards</p>
+                                <p class="text-muted text-xs font-light">30–60s of loading is enough to lose a user — so it holds 20 rotating film facts.</p>
+                            </div>
+                            <div class="card p-5">
+                                <p class="text-cream text-sm mb-1">Streaming availability on every card</p>
+                                <p class="text-muted text-xs font-light">Region-aware, with a direct link. The job isn't done until users know where to watch.</p>
+                            </div>
+                            <div class="card p-5">
+                                <p class="text-cream text-sm mb-1">One tap to share your pick</p>
+                                <p class="text-muted text-xs font-light">Native on mobile, clipboard on desktop. Organic reach built in, not bolted on.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- closing strip -->
+                <div class="mt-10 card p-7 flex flex-col md:flex-row items-center justify-between gap-6" data-reveal>
+                    <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
+                        <div class="text-center"><div class="font-serif text-3xl text-gold-light">166</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Sessions</div></div>
+                        <div class="text-center"><div class="font-serif text-3xl text-emerald2">0</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Errors</div></div>
+                        <div class="text-center"><div class="font-serif text-3xl text-gold-light">94%</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Resolved</div></div>
+                        <div class="text-center"><div class="font-serif text-3xl text-cream">$0</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Cost</div></div>
+                    </div>
+                    <p class="font-serif italic text-cream/80 text-lg md:text-xl text-center md:text-right">“Tools change.<br class="hidden md:block"> Product thinking does not.”</p>
+                </div>
+
+                <!-- Accordion: Product thinking (cost) -->
+                <div class="mt-6" data-reveal>
+                    <button class="acc-toggle" aria-expanded="false" onclick="toggleAcc(this)">
+                        <span>Product thinking · engineering the cost down</span>
+                        <span class="acc-icon">+</span>
+                    </button>
+                    <div class="acc-panel">
+                        <div class="pt-4 pb-1 px-1">
+                            <div class="acc-step prod"><span class="dot"></span><p><strong>Understand the cost before optimising it.</strong> Moodfilm makes two Claude calls per session — one to map mood to a cinematic profile, one to select films and write the explanations. In V1 both ran on Sonnet with output ceilings set generously and never actually reached.</p></div>
+                            <div class="acc-step prod"><span class="dot"></span><p><strong>Match the model to the task.</strong> Mood analysis is pattern recognition and JSON extraction, not deep reasoning — so call one moved to Haiku, ceiling cut 900 → 400 tokens. Call two stayed on Sonnet where reasoning matters, but its ceiling dropped 2,500 → 1,400, since six explanations at ~200 tokens is 1,200. The rest was headroom that could never be used.</p></div>
+                            <div class="acc-step prod"><span class="dot"></span><p><strong>Cut the input, not the quality.</strong> The candidate pool dropped from 10 films per genre to 6, and overview text from 120 to 80 characters. Selection quality didn't change — the input size did. These look like engineering choices; the difference is knowing why each number exists.</p></div>
+                            <div class="acc-step prod"><span class="dot"></span><p><strong>The result.</strong> 54% cheaper per session, about $1.80/month at the current pace. The data sources and hosting all sit on free tiers — so the only bill is the Claude API, now a deliberate number, not a default.</p></div>
+                            <div class="chip-row">
+                                <span class="chip bad">V1 · $0.065 / session</span>
+                                <span class="chip gold">V2 · $0.030 / session</span>
+                                <span class="chip good">54% cheaper</span>
+                                <span class="chip">$1.80 / month</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sneak peek: coming to Google Play -->
+                <div class="mt-6 card p-7 md:p-8 relative overflow-hidden" data-reveal>
+                    <div class="absolute -bottom-20 -left-12 w-60 h-60 rounded-full bg-emerald2/5 blur-3xl pointer-events-none"></div>
+                    <div class="relative flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                        <div class="shrink-0 w-16 h-16 rounded-2xl glass flex items-center justify-center">
+                            <svg viewBox="0 0 24 24" class="w-7 h-7" aria-hidden="true">
+                                <path d="M3.3 2.4 13.6 12 3.3 21.6c-.45.25-.98-.07-.98-.6V3c0-.53.53-.85.98-.6Z" fill="url(#pgA)"/>
+                                <path d="M13.6 12 3.3 2.4c.13-.07.28-.1.43-.07l12.4 7-2.53 2.67Z" fill="#7dd3fc"/>
+                                <path d="M13.6 12 16.13 14.67l-12.4 7c-.15.03-.3 0-.43-.07L13.6 12Z" fill="#34d399"/>
+                                <path d="m16.13 9.33 3.7 2.08c.78.45.78 1.73 0 2.18l-3.7 2.08L13.6 12l2.53-2.67Z" fill="url(#pgB)"/>
+                                <defs>
+                                    <linearGradient id="pgA" x1="2" y1="3" x2="13" y2="21"><stop stop-color="#e8c97a"/><stop offset="1" stop-color="#c9a84c"/></linearGradient>
+                                    <linearGradient id="pgB" x1="14" y1="9" x2="20" y2="15"><stop stop-color="#f5e8c0"/><stop offset="1" stop-color="#c9a84c"/></linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald2 animate-pulse"></span>
+                                <span class="eyebrow text-[0.56rem] text-emerald2">Sneak peek · In development</span>
+                            </div>
+                            <h4 class="font-serif text-2xl md:text-3xl text-cream mb-1">Moodfilm is becoming an app.</h4>
+                            <p class="text-muted text-sm font-light leading-relaxed max-w-xl mx-auto md:mx-0 mb-3">A native Android build is on the way — the same mood-first curation, now in your pocket. Coming soon to the Google Play Store. In the meantime, the web version is live.</p>
+                            <a href="https://aaronkankipati.github.io/Moodfilm/" target="_blank" rel="noopener" data-magnetic
+                               class="magnetic group inline-flex items-center gap-2 text-gold-light text-xs uppercase tracking-[0.18em] border-b border-gold/30 pb-1 hover:text-gold-pale hover:border-gold transition-all">
+                                Visit the live website <span class="group-hover:translate-x-1 transition-transform">→</span>
+                            </a>
+                        </div>
+                        <div class="shrink-0">
+                            <span class="inline-flex items-center gap-3 px-5 py-3 rounded-xl glass border border-white/10 cursor-default select-none">
+                                <svg viewBox="0 0 24 24" class="w-5 h-5" aria-hidden="true">
+                                    <path d="M3.3 2.4 13.6 12 3.3 21.6c-.45.25-.98-.07-.98-.6V3c0-.53.53-.85.98-.6Z" fill="#e8c97a"/>
+                                    <path d="M13.6 12 3.3 2.4c.13-.07.28-.1.43-.07l12.4 7-2.53 2.67Z" fill="#7dd3fc"/>
+                                    <path d="M13.6 12 16.13 14.67l-12.4 7c-.15.03-.3 0-.43-.07L13.6 12Z" fill="#34d399"/>
+                                    <path d="m16.13 9.33 3.7 2.08c.78.45.78 1.73 0 2.18l-3.7 2.08L13.6 12l2.53-2.67Z" fill="#c9a84c"/>
+                                </svg>
+                                <span class="text-left leading-tight">
+                                    <span class="block eyebrow text-[0.48rem] text-muted">Coming soon to</span>
+                                    <span class="block text-cream text-sm font-medium">Google Play</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PROJECT 02 — NEON BULL ================= -->
+        <section class="relative py-20 md:py-28 px-6 max-w-6xl mx-auto z-20 border-t border-white/5">
             <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
 
                 <!-- Narrative -->
                 <div class="flex-1 space-y-7 order-1 lg:order-1 lg:sticky lg:top-24">
                     <div class="flex items-center gap-4" data-reveal>
-                        <span class="font-serif text-5xl font-light text-gold/20">01</span>
+                        <span class="font-serif text-5xl font-light text-gold/20">02</span>
                         <div class="px-3 py-1 rounded-full border border-emerald2/30 bg-emerald2/10 flex items-center gap-2">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald2 animate-pulse"></span>
                             <span class="text-emerald2 text-[0.56rem] uppercase tracking-[0.18em]">Live Market Engine</span>
@@ -272,8 +534,8 @@
                         I gave an AI ₹10,000 and full control to trade the Indian stock market.
                     </p>
                     <p class="text-muted text-sm md:text-base leading-relaxed font-light" data-reveal>
-                        No human approves any trade. Claude analyses real NSE data twice a day and makes every call autonomously.
-                        It exists as the proving ground for Project Zeon — before handing an AI real capital through a live brokerage, I needed to know the engine actually works. So I built this first.
+                        No human approves any trade. Claude reads real NSE data twice a day and makes every call itself.
+                        It's the proving ground for Project Zeon — prove the engine on paper before it ever touches real capital.
                     </p>
 
                     <!-- headline stats -->
@@ -353,223 +615,26 @@
                             <span class="node sky">AI autonomous</span>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- ================= PROJECT 02 — MOODFILM (CASE STUDY) ================= -->
-        <section class="relative py-20 md:py-28 px-6 z-20 border-t border-white/5">
-            <div class="max-w-6xl mx-auto">
-
-                <!-- header -->
-                <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start mb-14">
-                    <div class="flex-1 space-y-6">
-                        <div class="flex items-center gap-4" data-reveal>
-                            <span class="font-serif text-5xl font-light text-gold/20">02</span>
-                            <div class="px-3 py-1 rounded-full border border-sky2/30 bg-sky2/10">
-                                <span class="text-sky2 text-[0.56rem] uppercase tracking-[0.18em]">Live Product · V2</span>
-                            </div>
-                        </div>
-                        <h3 class="font-serif text-4xl md:text-5xl text-cream" data-reveal>Moodfilm</h3>
-                        <p class="font-serif italic text-sky2/90 text-lg md:text-xl leading-snug" data-reveal>
-                            I am not a developer. I built this anyway. Product thinking over code.
-                        </p>
-                        <p class="text-muted text-sm md:text-base leading-relaxed font-light" data-reveal>
-                            An AI film curator that starts with one question — <em class="text-cream/90 not-italic font-normal">how are you feeling right now?</em>
-                            Tell it your mood, pick a language, and it finds a film matched to that emotional moment.
-                            Below is the real product story: how V1 broke, and how I rebuilt V2 around a hard constraint.
-                        </p>
-                        <a href="https://aaronkankipati.github.io/Moodfilm1/" target="_blank" rel="noopener" data-magnetic
-                           class="magnetic group inline-flex items-center gap-2 text-gold-light text-xs uppercase tracking-[0.18em] border-b border-gold/30 pb-1 hover:text-gold-pale hover:border-gold transition-all" data-reveal>
-                            Try Moodfilm v2 <span class="group-hover:translate-x-1 transition-transform">→</span>
-                        </a>
-                    </div>
-
-                    <!-- mock product card -->
-                    <div class="flex-1 w-full" data-reveal>
-                        <div class="card p-6 md:p-8 relative overflow-hidden">
-                            <div class="absolute inset-0 bg-gradient-to-br from-sky2/5 to-purple-500/5 pointer-events-none"></div>
-                            <div class="relative">
-                                <div class="flex justify-center mb-4">
-                                    <span class="node gold text-[0.6rem]">● AI Film Curator</span>
-                                </div>
-                                <p class="font-serif text-center text-2xl md:text-3xl text-cream mb-1">How are you <em class="italic text-gradient-gold">feeling</em></p>
-                                <p class="font-serif text-center text-2xl md:text-3xl text-cream mb-5">today?</p>
-                                <div class="flex flex-wrap justify-center gap-2 mb-5">
-                                    <span class="node text-[0.62rem]">Happy</span><span class="node text-[0.62rem]">Lonely</span>
-                                    <span class="node text-[0.62rem]">Hopeful</span><span class="node text-[0.62rem]">Heartbroken</span>
-                                    <span class="node text-[0.62rem]">Cozy</span><span class="node text-[0.62rem]">Restless</span>
-                                </div>
-                                <div class="flex flex-wrap justify-center gap-2 mb-6">
-                                    <span class="node sky text-[0.62rem]">English</span>
-                                    <span class="node gold text-[0.62rem]">Hindi</span>
-                                    <span class="node emer text-[0.62rem]">Telugu</span>
-                                </div>
-                                <div class="text-center py-3 rounded-full bg-gold/15 border border-gold/30 text-gold-pale text-xs uppercase tracking-[0.16em]">Find my film →</div>
-                            </div>
-                        </div>
-                        <p class="text-center eyebrow text-[0.55rem] text-muted/50 mt-3">Claude · TMDB · OMDb · Cloudflare Workers · GitHub Pages</p>
-                    </div>
-                </div>
-
-                <!-- STEP: DIAGNOSE -->
-                <div class="mb-10" data-reveal>
-                    <div class="flex items-baseline gap-3 mb-5">
-                        <span class="eyebrow text-[0.58rem] text-sky2">V1 → V2 · Diagnose</span>
-                        <span class="h-px flex-1 bg-white/8"></span>
-                    </div>
-                    <h4 class="font-serif text-2xl md:text-3xl text-cream mb-1">I used my own product.</h4>
-                    <p class="font-serif italic text-muted text-xl mb-7">Here's what I found — not from a code review, but from opening the app like a real user.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="card card-glow p-5 border-l-2 border-l-rose-400/40">
-                            <div class="eyebrow text-[0.52rem] text-rose-300 mb-2">Trust failure</div>
-                            <p class="text-cream text-sm mb-2">Every poster showed the wrong film.</p>
-                            <p class="text-muted text-xs font-light leading-relaxed">The wrong image on every recommendation card made every pick feel unreliable before a single word was read.</p>
-                        </div>
-                        <div class="card card-glow p-5 border-l-2 border-l-amber-400/40">
-                            <div class="eyebrow text-[0.52rem] text-amber-300 mb-2">Core promise broken</div>
-                            <p class="text-cream text-sm mb-2">Same films for every mood.</p>
-                            <p class="text-muted text-xs font-light leading-relaxed">Moodfilm's entire premise is emotional relevance. If every mood returns the same blockbusters, the product simply doesn't work.</p>
-                        </div>
-                        <div class="card card-glow p-5 border-l-2 border-l-sky2/40">
-                            <div class="eyebrow text-[0.52rem] text-sky2 mb-2">Backlog item #1</div>
-                            <p class="text-cream text-sm mb-2">No Hindi or Telugu support.</p>
-                            <p class="text-muted text-xs font-light leading-relaxed">Language selection didn't exist in V1. It became the most requested feature after launch — users told me what to build next.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STEP: THE CONSTRAINT (showpiece) -->
-                <div class="mb-10" data-reveal>
-                    <div class="card p-7 md:p-9 relative overflow-hidden">
-                        <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-gold/5 blur-3xl pointer-events-none"></div>
-                        <div class="relative">
-                            <div class="eyebrow text-[0.58rem] text-gold mb-3">V2 · The Product Decision</div>
-                            <h4 class="font-serif text-2xl md:text-4xl text-cream leading-tight mb-2">I hit a ceiling.</h4>
-                            <p class="font-serif italic text-muted text-xl md:text-2xl mb-6">So I redesigned around it.</p>
-                            <p class="text-muted text-sm md:text-base font-light leading-relaxed max-w-3xl mb-7">
-                                Adding OMDb alongside TMDb gave richer data — but two APIs pushed <span class="text-cream">170 calls per session</span> against a free-tier limit of 50.
-                                The easy move was to upgrade the plan. Instead: understand the constraint, scope the solution, keep both sources.
-                                I batched and parallelised calls across both APIs and brought it down to <span class="text-gold-light">22 calls max</span>. Stayed free.
-                            </p>
-                            <div class="flex flex-wrap items-stretch gap-4">
-                                <div class="flex-1 min-w-[120px] text-center py-4 px-3 rounded-xl bg-white/[.03] border border-white/8">
-                                    <div class="font-serif text-3xl text-cream">170<span class="text-muted text-base">→</span><span class="text-gold-light">22</span></div>
-                                    <div class="eyebrow text-[0.5rem] text-muted mt-1">Calls / session</div>
-                                </div>
-                                <div class="flex-1 min-w-[120px] text-center py-4 px-3 rounded-xl bg-white/[.03] border border-white/8">
-                                    <div class="font-serif text-3xl text-gold-light">Free</div>
-                                    <div class="eyebrow text-[0.5rem] text-muted mt-1">Tier kept</div>
-                                </div>
-                                <div class="flex-1 min-w-[120px] text-center py-4 px-3 rounded-xl bg-white/[.03] border border-white/8">
-                                    <div class="font-serif text-3xl text-emerald2">0</div>
-                                    <div class="eyebrow text-[0.5rem] text-muted mt-1">Errors</div>
-                                </div>
-                                <div class="flex-1 min-w-[120px] text-center py-4 px-3 rounded-xl bg-white/[.03] border border-white/8">
-                                    <div class="font-serif text-3xl text-cream">166</div>
-                                    <div class="eyebrow text-[0.5rem] text-muted mt-1">Live sessions</div>
+                    <!-- Accordion: How I approached it -->
+                    <div data-reveal>
+                        <button class="acc-toggle" aria-expanded="false" onclick="toggleAcc(this)">
+                            <span>How I approached it · the product thinking</span>
+                            <span class="acc-icon">+</span>
+                        </button>
+                        <div class="acc-panel">
+                            <div class="pt-4 pb-1 px-1">
+                                <div class="acc-step prod"><span class="dot"></span><p><strong>A controlled version of a bigger idea.</strong> Neon Bull is the proving ground for Project Zeon — a live-brokerage system I'd already wired up but deliberately paused. Same execution logic, real market, real prices, real brokerage. The only thing not real is the capital. Prove the engine before it touches real money.</p></div>
+                                <div class="acc-step prod"><span class="dot"></span><p><strong>The autonomy constraint forced every decision.</strong> Every trade is entirely autonomous — no approval, no veto, no second-guessing. The moment I can intervene, the experiment answers a different question. So I designed around never intervening.</p></div>
+                                <div class="acc-step prod"><span class="dot"></span><p><strong>The math had to work before the model did.</strong> V1 was structurally unprofitable — at ₹10,000 capital, a 1% move on one share earned ₹14 while a round trip cost ₹45 in brokerage. The fix was a product decision about the instrument universe and input size, not a smarter prompt.</p></div>
+                                <div class="acc-step prod"><span class="dot"></span><p><strong>Cost engineered down 99%.</strong> Across four versions I drove running cost from ₹41/day to ₹0.40/day by trimming inputs and matching effort to the task — without dropping decision quality. V1 trades twice daily; V2 moves to four sessions with a refined signal model.</p></div>
+                                <div class="chip-row">
+                                    <span class="chip bad">V1 · ₹41 / day</span>
+                                    <span class="chip gold">V4 · ₹0.40 / day</span>
+                                    <span class="chip good">99% cheaper</span>
+                                    <span class="chip">Zero overrides</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STEP: SHIP + DELIGHT -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" data-reveal>
-                    <div>
-                        <div class="flex items-baseline gap-3 mb-5">
-                            <span class="eyebrow text-[0.58rem] text-emerald2">V2 · Prioritise &amp; Ship</span>
-                            <span class="h-px flex-1 bg-white/8"></span>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="card p-5 flex items-start gap-4">
-                                <span class="text-emerald2 mt-0.5">✓</span>
-                                <div><p class="text-cream text-sm mb-1">Poster now always matches the film</p><p class="text-muted text-xs font-light">Claude returns a numeric film ID; the poster is fetched directly. No guessing. <span class="text-emerald2/80">Wrong poster eliminated.</span></p></div>
-                            </div>
-                            <div class="card p-5 flex items-start gap-4">
-                                <span class="text-emerald2 mt-0.5">✓</span>
-                                <div><p class="text-cream text-sm mb-1">Language selection from user feedback</p><p class="text-muted text-xs font-light">Any / English / Hindi / Telugu, applied at every step. <span class="text-emerald2/80">Top request delivered.</span></p></div>
-                            </div>
-                            <div class="card p-5 flex items-start gap-4">
-                                <span class="text-emerald2 mt-0.5">✓</span>
-                                <div><p class="text-cream text-sm mb-1">Recommendation engine rebuilt</p><p class="text-muted text-xs font-light">A psychological mood model with 900k+ films now reachable. <span class="text-emerald2/80">Core promise restored.</span></p></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-baseline gap-3 mb-5">
-                            <span class="eyebrow text-[0.58rem] text-gold">V2 · Customer Delight</span>
-                            <span class="h-px flex-1 bg-white/8"></span>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="card p-5">
-                                <p class="text-cream text-sm mb-1">“Did you know?” loading cards</p>
-                                <p class="text-muted text-xs font-light">Loading takes 30–60s — enough to lose a user. Filled with 20 rotating film facts to read while waiting.</p>
-                            </div>
-                            <div class="card p-5">
-                                <p class="text-cream text-sm mb-1">Streaming availability on every card</p>
-                                <p class="text-muted text-xs font-light">Netflix, Prime, Hotstar — region-aware, direct link. The job isn't done until users know where to watch.</p>
-                            </div>
-                            <div class="card p-5">
-                                <p class="text-cream text-sm mb-1">One tap to share your pick</p>
-                                <p class="text-muted text-xs font-light">Native share on mobile, clipboard on desktop. Organic reach built into the product, not bolted on.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- closing strip -->
-                <div class="mt-10 card p-7 flex flex-col md:flex-row items-center justify-between gap-6" data-reveal>
-                    <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
-                        <div class="text-center"><div class="font-serif text-3xl text-gold-light">166</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Sessions</div></div>
-                        <div class="text-center"><div class="font-serif text-3xl text-emerald2">0</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Errors</div></div>
-                        <div class="text-center"><div class="font-serif text-3xl text-gold-light">94%</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Resolved</div></div>
-                        <div class="text-center"><div class="font-serif text-3xl text-cream">$0</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Cost</div></div>
-                    </div>
-                    <p class="font-serif italic text-cream/80 text-lg md:text-xl text-center md:text-right">“Tools change.<br class="hidden md:block"> Product thinking does not.”</p>
-                </div>
-
-                <!-- Sneak peek: coming to Google Play -->
-                <div class="mt-6 card p-7 md:p-8 relative overflow-hidden" data-reveal>
-                    <div class="absolute -bottom-20 -left-12 w-60 h-60 rounded-full bg-emerald2/5 blur-3xl pointer-events-none"></div>
-                    <div class="relative flex flex-col md:flex-row items-center gap-6 md:gap-8">
-                        <div class="shrink-0 w-16 h-16 rounded-2xl glass flex items-center justify-center">
-                            <svg viewBox="0 0 24 24" class="w-7 h-7" aria-hidden="true">
-                                <path d="M3.3 2.4 13.6 12 3.3 21.6c-.45.25-.98-.07-.98-.6V3c0-.53.53-.85.98-.6Z" fill="url(#pgA)"/>
-                                <path d="M13.6 12 3.3 2.4c.13-.07.28-.1.43-.07l12.4 7-2.53 2.67Z" fill="#7dd3fc"/>
-                                <path d="M13.6 12 16.13 14.67l-12.4 7c-.15.03-.3 0-.43-.07L13.6 12Z" fill="#34d399"/>
-                                <path d="m16.13 9.33 3.7 2.08c.78.45.78 1.73 0 2.18l-3.7 2.08L13.6 12l2.53-2.67Z" fill="url(#pgB)"/>
-                                <defs>
-                                    <linearGradient id="pgA" x1="2" y1="3" x2="13" y2="21"><stop stop-color="#e8c97a"/><stop offset="1" stop-color="#c9a84c"/></linearGradient>
-                                    <linearGradient id="pgB" x1="14" y1="9" x2="20" y2="15"><stop stop-color="#f5e8c0"/><stop offset="1" stop-color="#c9a84c"/></linearGradient>
-                                </defs>
-                            </svg>
-                        </div>
-                        <div class="flex-1 text-center md:text-left">
-                            <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald2 animate-pulse"></span>
-                                <span class="eyebrow text-[0.56rem] text-emerald2">Sneak peek · In development</span>
-                            </div>
-                            <h4 class="font-serif text-2xl md:text-3xl text-cream mb-1">Moodfilm is becoming an app.</h4>
-                            <p class="text-muted text-sm font-light leading-relaxed max-w-xl mx-auto md:mx-0 mb-3">A native Android build is on the way — the same mood-first curation, now in your pocket. Coming soon to the Google Play Store. In the meantime, the web version is live.</p>
-                            <a href="https://aaronkankipati.github.io/Moodfilm/" target="_blank" rel="noopener" data-magnetic
-                               class="magnetic group inline-flex items-center gap-2 text-gold-light text-xs uppercase tracking-[0.18em] border-b border-gold/30 pb-1 hover:text-gold-pale hover:border-gold transition-all">
-                                Visit the live website <span class="group-hover:translate-x-1 transition-transform">→</span>
-                            </a>
-                        </div>
-                        <div class="shrink-0">
-                            <span class="inline-flex items-center gap-3 px-5 py-3 rounded-xl glass border border-white/10 cursor-default select-none">
-                                <svg viewBox="0 0 24 24" class="w-5 h-5" aria-hidden="true">
-                                    <path d="M3.3 2.4 13.6 12 3.3 21.6c-.45.25-.98-.07-.98-.6V3c0-.53.53-.85.98-.6Z" fill="#e8c97a"/>
-                                    <path d="M13.6 12 3.3 2.4c.13-.07.28-.1.43-.07l12.4 7-2.53 2.67Z" fill="#7dd3fc"/>
-                                    <path d="M13.6 12 16.13 14.67l-12.4 7c-.15.03-.3 0-.43-.07L13.6 12Z" fill="#34d399"/>
-                                    <path d="m16.13 9.33 3.7 2.08c.78.45.78 1.73 0 2.18l-3.7 2.08L13.6 12l2.53-2.67Z" fill="#c9a84c"/>
-                                </svg>
-                                <span class="text-left leading-tight">
-                                    <span class="block eyebrow text-[0.48rem] text-muted">Coming soon to</span>
-                                    <span class="block text-cream text-sm font-medium">Google Play</span>
-                                </span>
-                            </span>
                         </div>
                     </div>
                 </div>
@@ -907,6 +972,15 @@
                 renderer.setSize(innerWidth, innerHeight);
             });
         }
+
+        /* ---------- Accordion toggle ---------- */
+        window.toggleAcc = function(btn){
+            const panel = btn.nextElementSibling;
+            const open = btn.getAttribute("aria-expanded") === "true";
+            btn.setAttribute("aria-expanded", String(!open));
+            panel.style.maxHeight = open ? "0px" : (panel.scrollHeight + 40) + "px";
+            if (!open && lenis) setTimeout(() => ScrollTrigger.refresh(), 560);
+        };
 
         ScrollTrigger.refresh();
     });

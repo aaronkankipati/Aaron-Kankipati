@@ -185,9 +185,142 @@
             *{ animation:none !important; transition:none !important; }
             .acc-panel{ transition:none; }
         }
+
+        /* ===== Preloader ===== */
+        #preloader{
+            position:fixed; inset:0; z-index:9998; background:var(--navy-deep);
+            display:flex; align-items:center; justify-content:center;
+            transition:opacity 1s cubic-bezier(.4,0,.2,1), visibility 1s;
+        }
+        #preloader.done{ opacity:0; visibility:hidden; pointer-events:none; }
+        .pl-mono{
+            width:84px; height:84px; border-radius:50%;
+            background:radial-gradient(120% 120% at 30% 20%, rgba(201,168,76,.22), transparent 60%),
+                        linear-gradient(160deg, var(--navy-light), var(--navy-deep));
+            border:1px solid rgba(201,168,76,.28);
+            display:flex; align-items:center; justify-content:center;
+            margin:0 auto 22px;
+            box-shadow:0 0 0 0 rgba(201,168,76,.2);
+            animation:plPulse 1.8s ease-in-out infinite;
+        }
+        @keyframes plPulse{
+            0%,100%{ box-shadow:0 0 0 0 rgba(201,168,76,.2); }
+            50%{ box-shadow:0 0 0 16px rgba(201,168,76,0); }
+        }
+        .pl-track{ width:150px; height:1px; background:rgba(255,255,255,.07); margin:0 auto; overflow:hidden; border-radius:1px; }
+        .pl-fill{ height:100%; width:0%; background:linear-gradient(90deg, transparent, var(--gold), transparent); border-radius:1px; transition:width .06s linear; }
+        .pl-label{ font-family:'Jost',sans-serif; font-size:.5rem; letter-spacing:.32em; text-transform:uppercase; color:rgba(147,133,171,.45); margin-top:13px; text-align:center; }
+
+        /* ===== Scroll progress rail ===== */
+        #scroll-progress{ position:fixed; left:0; top:0; width:2px; height:100%; z-index:44; pointer-events:none; }
+        #scroll-fill{ width:100%; height:0%; background:linear-gradient(to bottom, transparent 0%, var(--gold) 50%, transparent 100%); }
+
+        /* ===== Cursor trail ===== */
+        .trail-dot{
+            position:fixed; top:0; left:0; z-index:9996; pointer-events:none;
+            border-radius:9999px; transform:translate(-50%,-50%);
+            background:var(--gold-pale); mix-blend-mode:difference; will-change:transform;
+        }
+        @media (hover:none),(max-width:768px){ .trail-dot{ display:none; } }
+
+        /* ===== 3D tilt ===== */
+        .card{ transform-style:preserve-3d; will-change:transform; }
+
+        /* ===== Animated counter ===== */
+        [data-count]{ font-variant-numeric:tabular-nums; }
+
+        /* ===== Section ambient shift ===== */
+        .aurora{ transition:filter 1.2s ease; }
+        body.in-work .aurora{ filter:hue-rotate(-10deg) saturate(1.1); }
+        body.in-about .aurora{ filter:hue-rotate(20deg) saturate(.95); }
+        body.in-connect .aurora{ filter:hue-rotate(5deg) saturate(.9); }
+
+        /* ===== Hero subtitle underline animate ===== */
+        #hero-desc em{ border-bottom:1px solid rgba(201,168,76,.3); padding-bottom:1px; }
+
+        /* ===== Floating label polish ===== */
+        .section-rule{
+            display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;
+        }
+        .section-rule::after{
+            content:""; flex:1; height:1px;
+            background:linear-gradient(to right, rgba(255,255,255,.07), transparent);
+        }
+
+        /* ===== Touch ripple (mobile card tap) ===== */
+        .ripple{
+            position:absolute; border-radius:50%; transform:scale(0);
+            animation:rippleOut .65s cubic-bezier(.4,0,.2,1) forwards;
+            background:rgba(201,168,76,.18); pointer-events:none; z-index:5;
+        }
+        @keyframes rippleOut{ to{ transform:scale(4.5); opacity:0; } }
+
+        /* ===== Mobile section nav dots ===== */
+        #mob-dots{
+            position:fixed; right:14px; top:50%; transform:translateY(-50%);
+            z-index:40; display:flex; flex-direction:column; gap:9px;
+        }
+        .mob-dot{
+            width:5px; height:5px; border-radius:9999px;
+            background:rgba(201,168,76,.28); border:none; padding:0; cursor:pointer;
+            transition:background .35s, height .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s;
+            touch-action:manipulation;
+        }
+        .mob-dot.active{
+            background:var(--gold); height:18px; border-radius:3px;
+            box-shadow:0 0 10px rgba(201,168,76,.5);
+        }
+        @media(min-width:769px){ #mob-dots{ display:none; } }
+
+        /* ===== Mobile swipe hint ===== */
+        #swipe-hint{
+            display:flex; flex-direction:column; align-items:center; gap:6px;
+            position:absolute; bottom:5.5rem;
+        }
+        .swipe-finger{
+            width:22px; height:36px; border:1.5px solid rgba(201,168,76,.35);
+            border-radius:12px; display:flex; align-items:flex-start; justify-content:center;
+            padding-top:5px;
+        }
+        .swipe-finger::before{
+            content:""; width:3px; height:8px; border-radius:9999px;
+            background:var(--gold); animation:swipePulse 1.6s ease-in-out infinite;
+        }
+        @keyframes swipePulse{
+            0%,100%{ opacity:.3; transform:translateY(0); }
+            50%{ opacity:1; transform:translateY(6px); }
+        }
+        @media(min-width:769px){ #swipe-hint{ display:none; } }
+
+        /* ===== Native-app feel ===== */
+        body{ overscroll-behavior:none; -webkit-overflow-scrolling:touch; }
+        a,button{ -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
+
+        /* ===== Mobile performance: GPU layers ===== */
+        .card,.aurora,.grain{ transform:translateZ(0); }
     </style>
 </head>
 <body class="relative overflow-x-hidden font-sans">
+
+    <!-- Preloader -->
+    <div id="preloader" aria-hidden="true">
+        <div>
+            <div class="pl-mono"><span class="font-serif text-2xl text-gradient-gold">AK</span></div>
+            <div class="pl-track"><div class="pl-fill" id="pl-fill"></div></div>
+            <div class="pl-label">Loading experience</div>
+        </div>
+    </div>
+
+    <!-- Scroll progress -->
+    <div id="scroll-progress" aria-hidden="true"><div id="scroll-fill"></div></div>
+
+    <!-- Mobile section nav dots -->
+    <div id="mob-dots" aria-hidden="true">
+        <button class="mob-dot active" data-target="top"    title="Top"></button>
+        <button class="mob-dot"        data-target="work"   title="Work"></button>
+        <button class="mob-dot"        data-target="about"  title="About"></button>
+        <button class="mob-dot"        data-target="connect" title="Connect"></button>
+    </div>
 
     <!-- 3D background -->
     <canvas id="webgl" class="fixed inset-0 z-0 pointer-events-none"></canvas>
@@ -198,6 +331,7 @@
     <!-- custom cursor -->
     <div class="cursor-ring" id="cursorRing"></div>
     <div class="cursor-dot" id="cursorDot"></div>
+    <!-- cursor trail (populated by JS) -->
 
     <!-- side labels -->
     <div class="fixed left-5 top-1/2 -translate-y-1/2 z-40 hidden xl:block" style="writing-mode:vertical-rl">
@@ -231,7 +365,7 @@
 
                 <h1 class="font-serif font-light leading-[0.95] opacity-0 translate-y-10" id="hero-title" style="font-size:clamp(3rem,11vw,8.5rem)">
                     <em class="italic text-gradient-gold">Aaron</em>
-                    <span class="block md:inline text-cream">Kankipati</span>
+                    <span class="block md:inline text-cream" id="hero-lastname">Kankipati</span>
                 </h1>
 
                 <div class="w-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent my-7" id="hero-line"></div>
@@ -250,9 +384,15 @@
                 </div>
             </div>
 
+            <!-- desktop scroll hint -->
             <div class="absolute bottom-24 md:bottom-10 flex-col items-center gap-2 opacity-40 hidden md:flex" id="scroll-ind">
                 <span class="eyebrow text-[0.58rem] text-gold">Scroll</span>
                 <div class="w-px h-10 bg-gradient-to-b from-gold to-transparent"></div>
+            </div>
+            <!-- mobile swipe hint -->
+            <div id="swipe-hint" class="opacity-0" aria-hidden="true">
+                <div class="swipe-finger"></div>
+                <span class="eyebrow text-[0.52rem] text-gold/50">Swipe up</span>
             </div>
         </section>
 
@@ -379,7 +519,7 @@
                             </p>
                             <div class="flex flex-wrap items-stretch gap-4">
                                 <div class="flex-1 min-w-[120px] text-center py-4 px-3 rounded-xl bg-white/[.03] border border-white/8">
-                                    <div class="font-serif text-3xl text-cream">170<span class="text-muted text-base">→</span><span class="text-gold-light">22</span></div>
+                                    <div class="font-serif text-3xl text-cream">170<span class="text-muted text-base">→</span><span class="text-gold-light" data-count="22">22</span></div>
                                     <div class="eyebrow text-[0.5rem] text-muted mt-1">Calls / session</div>
                                 </div>
                                 <div class="flex-1 min-w-[120px] text-center py-4 px-3 rounded-xl bg-white/[.03] border border-white/8">
@@ -438,10 +578,10 @@
                 <!-- closing strip -->
                 <div class="mt-10 card p-7 flex flex-col md:flex-row items-center justify-between gap-6" data-reveal>
                     <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
-                        <div class="text-center"><div class="font-serif text-3xl text-gold-light">166</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Sessions</div></div>
+                        <div class="text-center"><div class="font-serif text-3xl text-gold-light" data-count="166">166</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Sessions</div></div>
                         <div class="text-center"><div class="font-serif text-3xl text-emerald2">0</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Errors</div></div>
-                        <div class="text-center"><div class="font-serif text-3xl text-gold-light">94%</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Resolved</div></div>
-                        <div class="text-center"><div class="font-serif text-3xl text-cream">$0.03</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Per session</div></div>
+                        <div class="text-center"><div class="font-serif text-3xl text-gold-light" data-count="94" data-suffix="%">94%</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Resolved</div></div>
+                        <div class="text-center"><div class="font-serif text-3xl text-cream" data-count="0.03" data-prefix="$">$0.03</div><div class="eyebrow text-[0.5rem] text-muted mt-1">Per session</div></div>
                     </div>
                     <p class="font-serif italic text-cream/80 text-lg md:text-xl text-center md:text-right">“Tools change.<br class="hidden md:block"> Product thinking does not.”</p>
                 </div>
@@ -948,6 +1088,38 @@
             knot.position.z = -2;
             scene.add(knot);
 
+            // constellation lines between nearby stars (desktop only)
+            if (!isMobile) {
+                const linePositions = [];
+                const starArr = [];
+                for (let i = 0; i < bigCount; i++) {
+                    starArr.push(new THREE.Vector3(bpos[i*3], bpos[i*3+1], bpos[i*3+2]));
+                }
+                for (let i = 0; i < starArr.length; i++) {
+                    for (let j = i+1; j < starArr.length; j++) {
+                        if (starArr[i].distanceTo(starArr[j]) < 3.5) {
+                            linePositions.push(starArr[i].x, starArr[i].y, starArr[i].z);
+                            linePositions.push(starArr[j].x, starArr[j].y, starArr[j].z);
+                        }
+                    }
+                }
+                if (linePositions.length) {
+                    const lgeo = new THREE.BufferGeometry();
+                    lgeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(linePositions), 3));
+                    const lmat = new THREE.LineBasicMaterial({ color:0xe8c97a, transparent:true, opacity:.06, blending:THREE.AdditiveBlending, depthWrite:false });
+                    const lines = new THREE.LineSegments(lgeo, lmat);
+                    scene.add(lines);
+                    scene.userData.constellationLines = lines;
+                }
+            }
+
+            // subtle horizon grid for spatial depth
+            const gridHelper = new THREE.GridHelper(20, 20, 0xc9a84c, 0xc9a84c);
+            gridHelper.position.y = -4.5;
+            gridHelper.material.transparent = true;
+            gridHelper.material.opacity = 0.025;
+            scene.add(gridHelper);
+
             const clock = new THREE.Clock();
             let scrollY = 0;
             if (lenis) lenis.on("scroll", (e) => scrollY = e.scroll);
@@ -960,8 +1132,19 @@
                 bigStars.rotation.y = -t*.02; bigStars.rotation.x = t*.008;
                 knot.rotation.y = t*.14; knot.rotation.x = t*.07;
                 knot.position.y = Math.sin(t*.5)*.12;
-                camera.position.y = -scrollY * .0009;
-                camera.position.x += (((window.__mx||0)*.4) - camera.position.x)*.05;
+                if (scene.userData.constellationLines) {
+                    scene.userData.constellationLines.rotation.y = -t*.02;
+                    scene.userData.constellationLines.rotation.x = t*.008;
+                }
+                // camera: gyroscope on mobile, mouse on desktop
+                if (isMobile) {
+                    const gx = window.__gyroX || 0, gy = window.__gyroY || 0;
+                    camera.position.x += (gx * 0.6 - camera.position.x) * 0.04;
+                    camera.position.y += (-scrollY * .0009 + gy * 0.3 - camera.position.y) * 0.04;
+                } else {
+                    camera.position.y = -scrollY * .0009;
+                    camera.position.x += (((window.__mx||0)*.4) - camera.position.x)*.05;
+                }
                 camera.lookAt(0,camera.position.y,-2);
                 renderer.render(scene, camera);
             })();
@@ -981,6 +1164,231 @@
             panel.style.maxHeight = open ? "0px" : (panel.scrollHeight + 40) + "px";
             if (!open && lenis) setTimeout(() => ScrollTrigger.refresh(), 560);
         };
+
+        /* ---------- 7. Preloader ---------- */
+        const preloader = document.getElementById("preloader");
+        const plFill = document.getElementById("pl-fill");
+        let plPct = 0;
+        const plInt = setInterval(() => {
+            plPct += Math.random() * 16 + 5;
+            if (plPct >= 95) { plPct = 95; clearInterval(plInt); }
+            plFill.style.width = plPct + "%";
+        }, 55);
+        const dismissPreloader = () => {
+            plFill.style.width = "100%";
+            clearInterval(plInt);
+            setTimeout(() => preloader.classList.add("done"), 250);
+        };
+        if (document.readyState === "complete") { dismissPreloader(); }
+        else { window.addEventListener("load", dismissPreloader); }
+        setTimeout(dismissPreloader, 3000);
+
+        /* ---------- 8. Scroll progress ---------- */
+        const scrollFillEl = document.getElementById("scroll-fill");
+        const updateScrollProgress = () => {
+            const max = document.documentElement.scrollHeight - innerHeight;
+            if (max > 0) scrollFillEl.style.height = (scrollY / max * 100) + "%";
+        };
+        window.addEventListener("scroll", updateScrollProgress, { passive: true });
+
+        /* ---------- 9. 3D card tilt ---------- */
+        if (!isMobile && !reduce) {
+            document.querySelectorAll(".card").forEach(card => {
+                card.addEventListener("mousemove", (e) => {
+                    const r = card.getBoundingClientRect();
+                    const x = (e.clientX - r.left) / r.width - 0.5;
+                    const y = (e.clientY - r.top) / r.height - 0.5;
+                    card.style.transform = `perspective(800px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-4px)`;
+                    card.style.boxShadow = `${-x * 18}px ${-y * 18}px 60px -20px rgba(0,0,0,.85),
+                        0 0 50px -28px rgba(201,168,76,${(Math.abs(x) + Math.abs(y)) * 0.18})`;
+                });
+                card.addEventListener("mouseleave", () => {
+                    card.style.transform = "";
+                    card.style.boxShadow = "";
+                });
+            });
+        }
+
+        /* ---------- 10. Animated counters ---------- */
+        document.querySelectorAll("[data-count]").forEach(el => {
+            const target = parseFloat(el.dataset.count);
+            const suffix = el.dataset.suffix || "";
+            const prefix = el.dataset.prefix || "";
+            const isInt = Number.isInteger(target);
+            ScrollTrigger.create({
+                trigger: el, start: "top 92%", once: true,
+                onEnter: () => {
+                    const obj = { val: 0 };
+                    gsap.to(obj, {
+                        val: target, duration: 2.2, ease: "power3.out",
+                        onUpdate() {
+                            el.textContent = prefix + (isInt ? Math.round(obj.val) : obj.val.toFixed(2)) + suffix;
+                        },
+                        onComplete() {
+                            el.textContent = prefix + (isInt ? target : target.toFixed(2)) + suffix;
+                        }
+                    });
+                }
+            });
+        });
+
+        /* ---------- 11. Cursor trail ---------- */
+        if (!isMobile && !reduce) {
+            const TRAIL_N = 8;
+            const trails = Array.from({ length: TRAIL_N }, (_, i) => {
+                const d = document.createElement("div");
+                d.className = "trail-dot";
+                const sz = Math.max(1.5, 4 - i * 0.35);
+                d.style.cssText = `width:${sz}px;height:${sz}px;opacity:${(0.32 - i * 0.034).toFixed(3)}`;
+                document.body.appendChild(d);
+                return { el: d, x: 0, y: 0 };
+            });
+            let mx = 0, my = 0;
+            window.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+            (function trailLoop() {
+                trails[0].x = mx; trails[0].y = my;
+                for (let i = 1; i < TRAIL_N; i++) {
+                    trails[i].x += (trails[i-1].x - trails[i].x) * 0.32;
+                    trails[i].y += (trails[i-1].y - trails[i].y) * 0.32;
+                }
+                trails.forEach(t => {
+                    t.el.style.transform = `translate(${t.x}px,${t.y}px) translate(-50%,-50%)`;
+                });
+                requestAnimationFrame(trailLoop);
+            })();
+        }
+
+        /* ---------- 12. Text scramble on hero last name ---------- */
+        if (!reduce) {
+            const scEl = document.getElementById("hero-lastname");
+            if (scEl) {
+                const ORIGINAL = scEl.textContent;
+                const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                const queue = ORIGINAL.split("").map((ch, i) => ({
+                    to: ch, start: i * 3, end: i * 3 + 10, cur: ""
+                }));
+                let frame = 0, raf;
+                const tick = () => {
+                    let out = "", done = 0;
+                    for (const item of queue) {
+                        if (frame >= item.end) { out += item.to; done++; }
+                        else if (frame >= item.start) {
+                            if (!item.cur || Math.random() < 0.28)
+                                item.cur = CHARS[Math.floor(Math.random() * CHARS.length)];
+                            out += `<span style="color:rgba(201,168,76,.35)">${item.cur}</span>`;
+                        } else {
+                            out += `<span style="opacity:0">${item.to}</span>`;
+                        }
+                    }
+                    scEl.innerHTML = out;
+                    if (done < queue.length) { frame++; raf = requestAnimationFrame(tick); }
+                    else scEl.textContent = ORIGINAL;
+                };
+                setTimeout(tick, 1900);
+            }
+        }
+
+        /* ---------- 13. Section ambient colour shift ---------- */
+        ["work","about","connect"].forEach(id => {
+            const sec = document.getElementById(id);
+            if (!sec) return;
+            ScrollTrigger.create({
+                trigger: sec, start: "top 60%", end: "bottom 40%",
+                onEnter: () => document.body.className = document.body.className.replace(/in-\w+/g, "").trim() + " in-" + id,
+                onLeaveBack: () => document.body.className = document.body.className.replace(/in-\w+/g, "").trim(),
+            });
+        });
+
+        /* ---------- 14. Marquee pause on visibility ---------- */
+        const marquee = document.querySelector(".marquee");
+        if (marquee) {
+            ScrollTrigger.create({
+                trigger: marquee, start: "top bottom", end: "bottom top",
+                onLeave: () => marquee.style.animationPlayState = "paused",
+                onEnterBack: () => marquee.style.animationPlayState = "running",
+            });
+        }
+
+        /* ---------- 15. Gyroscope parallax (mobile) ---------- */
+        if (isMobile && window.DeviceOrientationEvent) {
+            const requestGyro = () => {
+                if (typeof DeviceOrientationEvent.requestPermission === "function") {
+                    DeviceOrientationEvent.requestPermission().then(state => {
+                        if (state === "granted") bindGyro();
+                    }).catch(() => {});
+                } else { bindGyro(); }
+            };
+            const bindGyro = () => {
+                let baseGamma = null, baseBeta = null;
+                window.addEventListener("deviceorientation", (e) => {
+                    if (baseGamma === null) { baseGamma = e.gamma || 0; baseBeta = e.beta || 0; }
+                    window.__gyroX = Math.max(-1, Math.min(1, ((e.gamma || 0) - baseGamma) / 25));
+                    window.__gyroY = Math.max(-1, Math.min(1, ((e.beta  || 0) - baseBeta)  / 25));
+                }, { passive: true });
+            };
+            // iOS 13+ requires a user gesture — hook into first tap
+            document.addEventListener("touchstart", requestGyro, { once: true, passive: true });
+        }
+
+        /* ---------- 16. Touch ripple on cards (mobile) ---------- */
+        if (isMobile) {
+            document.querySelectorAll(".card").forEach(card => {
+                card.addEventListener("touchstart", (e) => {
+                    const touch = e.touches[0];
+                    const r = card.getBoundingClientRect();
+                    const ripple = document.createElement("span");
+                    ripple.className = "ripple";
+                    const size = Math.max(r.width, r.height);
+                    ripple.style.cssText = `width:${size}px;height:${size}px;left:${touch.clientX - r.left - size/2}px;top:${touch.clientY - r.top - size/2}px`;
+                    card.appendChild(ripple);
+                    ripple.addEventListener("animationend", () => ripple.remove(), { once: true });
+                }, { passive: true });
+            });
+        }
+
+        /* ---------- 17. Haptic micro-feedback (mobile) ---------- */
+        if (isMobile && navigator.vibrate) {
+            document.querySelectorAll("a, button, .acc-toggle").forEach(el => {
+                el.addEventListener("touchstart", () => navigator.vibrate(1), { passive: true });
+            });
+        }
+
+        /* ---------- 18. Mobile section nav dots ---------- */
+        const mobDots = document.querySelectorAll(".mob-dot");
+        if (mobDots.length) {
+            const dotTargets = ["top","work","about","connect"];
+            const updateDots = () => {
+                const sy = window.scrollY + window.innerHeight * 0.45;
+                let active = "top";
+                for (const id of dotTargets) {
+                    const el = document.getElementById(id);
+                    if (el && el.getBoundingClientRect().top + window.scrollY <= sy) active = id;
+                }
+                mobDots.forEach(d => d.classList.toggle("active", d.dataset.target === active));
+            };
+            window.addEventListener("scroll", updateDots, { passive: true });
+            mobDots.forEach(d => {
+                d.addEventListener("click", () => {
+                    const target = document.getElementById(d.dataset.target);
+                    if (!target) return;
+                    if (lenis) lenis.scrollTo(target, { offset:-20, duration:1.4 });
+                    else target.scrollIntoView({ behavior:"smooth" });
+                    if (navigator.vibrate) navigator.vibrate(2);
+                });
+            });
+            updateDots();
+        }
+
+        /* ---------- 19. Show swipe hint on mobile after hero loads ---------- */
+        if (isMobile && !reduce) {
+            const swipeHint = document.getElementById("swipe-hint");
+            if (swipeHint) {
+                setTimeout(() => { gsap.to(swipeHint, { opacity:1, duration:.8 }); }, 2400);
+                window.addEventListener("scroll", () => {
+                    if (window.scrollY > 60) gsap.to(swipeHint, { opacity:0, duration:.4 });
+                }, { once: true, passive: true });
+            }
+        }
 
         ScrollTrigger.refresh();
     });

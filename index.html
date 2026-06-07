@@ -297,7 +297,8 @@
         a,button{ -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
 
         /* ===== Mobile performance: GPU layers ===== */
-        .card,.aurora,.grain{ transform:translateZ(0); }
+        /* Note: aurora + grain intentionally excluded — transform breaks mix-blend-mode on iOS Safari */
+        .card{ transform:translateZ(0); }
     </style>
 </head>
 <body class="relative overflow-x-hidden font-sans">

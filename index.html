@@ -296,6 +296,14 @@
         body{ overscroll-behavior:none; -webkit-overflow-scrolling:touch; }
         a,button{ -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
 
+        /* ===== Mobile colour corrections ===== */
+        @media (max-width:768px){
+            /* Bring the purple aurora forward so it counteracts the warm grain */
+            .aurora{ opacity:.8; }
+            /* Dial grain back so warm turbulence noise doesn't dominate */
+            .grain{ opacity:.28; }
+        }
+
         /* ===== Mobile performance: GPU layers ===== */
         /* Note: aurora + grain intentionally excluded — transform breaks mix-blend-mode on iOS Safari */
         .card{ transform:translateZ(0); }
@@ -1083,10 +1091,10 @@
 
             // holographic spiral — the torus knot, back as you liked it
             const knot = new THREE.Mesh(
-                new THREE.TorusKnotGeometry(1.6, .42, isMobile?100:200, isMobile?12:20),
-                new THREE.MeshBasicMaterial({ color:0xc9a84c, wireframe:true, transparent:true, opacity:.14 })
+                new THREE.TorusKnotGeometry(isMobile ? 0.9 : 1.6, isMobile ? .24 : .42, isMobile?100:200, isMobile?12:20),
+                new THREE.MeshBasicMaterial({ color:0xc9a84c, wireframe:true, transparent:true, opacity: isMobile ? .09 : .14 })
             );
-            knot.position.z = -2;
+            knot.position.z = isMobile ? -4.5 : -2;
             scene.add(knot);
 
             // constellation lines between nearby stars (desktop only)

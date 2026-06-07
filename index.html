@@ -298,10 +298,16 @@
 
         /* ===== Mobile colour corrections ===== */
         @media (max-width:768px){
-            /* Bring the purple aurora forward so it counteracts the warm grain */
-            .aurora{ opacity:.8; }
-            /* Dial grain back so warm turbulence noise doesn't dominate */
-            .grain{ opacity:.28; }
+            /* Grain's mix-blend-mode:overlay renders warm on iOS Safari — disable it entirely */
+            .grain{ display:none; }
+            /* Redefine aurora with stronger purple so the navy-purple tone matches desktop */
+            .aurora{
+                opacity:1;
+                background:
+                  radial-gradient(55% 45% at 15% 10%, rgba(139,92,246,.32), transparent 60%),
+                  radial-gradient(50% 50% at 88% 20%, rgba(201,168,76,.12), transparent 60%),
+                  radial-gradient(65% 55% at 50% 105%, rgba(7,4,9,.95), transparent 70%);
+            }
         }
 
         /* ===== Mobile performance: GPU layers ===== */
